@@ -1,0 +1,37 @@
+{
+  "name": "shoppyglobe-e-commerce-backend",
+  "version": "1.0.0",
+  "description": "This project is to provide the backend support for shoppyglobe e-commerce project",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/singhsamiksha/shoppyglobe-e-commerce-backend.git"
+  },
+  "keywords": [
+    "shoppyglobe-e-commerce",
+    "internshala",
+    "project"
+  ],
+  "author": "Samiksha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/singhsamiksha/shoppyglobe-e-commerce-backend/issues"
+  },
+  "homepage": "https://github.com/singhsamiksha/shoppyglobe-e-commerce-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parse": "^0.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "npm": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
