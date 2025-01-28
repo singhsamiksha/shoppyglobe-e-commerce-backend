@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const mongoURI = process.env.MONGO_URI;
 
 exports.initDatabase = async () => {
@@ -8,4 +9,4 @@ exports.initDatabase = async () => {
     } catch (err) {
         console.error(err);
     }
-}
+};
