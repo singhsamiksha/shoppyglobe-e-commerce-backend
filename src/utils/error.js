@@ -4,8 +4,9 @@ module.exports = ErrorUtil;
 ErrorUtil.APIError = (error, res) => {
     // eslint-disable-next-line no-console
     console.error('Error in API', error.stack);
-    return res.json({
+    return res.status(500).json({
         status: false,
-        message: error.message,
+        message: 'Server Error',
+        debug: error.message,
     });
 };
