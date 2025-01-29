@@ -60,3 +60,20 @@ AuthController.loginUser = async (req, res) => {
         return ErrorUtil.APIError(error, res);
     }
 };
+
+AuthController.validateUser = async (req, res) => {
+    const { user } = req;
+    try {
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json({
+            message: 'User valid',
+            data: {
+                user: UserModel.getPublicObject(user),
+            },
+        });
+    } catch (error) {
+        return ErrorUtil.APIError(error, res);
+    }
+};
