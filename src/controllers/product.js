@@ -6,18 +6,42 @@ const ProductController = {};
 module.exports = ProductController;
 
 ProductController.getAllProducts = async (req, res) => {
+    const {
+        search, skip = 0, limit = 10, sortBy = 'title', sortOrder = 'asc',
+    } = req.query;
+
     try {
-        const products = await ProductModel.find(
-            {},
-            {
-                title: 1,
-                price: 1,
-                thumbnail: 1,
-            },
-        );
+        const filter = {};
+        if (search) {
+            filter.title = { $regex: search, $options: 'i' };
+        }
+
+        const sortObj = {};
+        if (sortBy === 'price') {
+            sortObj.price = sortOrder === 'asc' ? 1 : -1;
+        } else {
+            sortObj.title = sortOrder === 'asc' ? 1 : -1;
+        }
+
+        const products = await ProductModel.find(filter, {
+            title: 1,
+            price: 1,
+            thumbnail: 1,
+            created_at: 1,
+        })
+            .skip(Number(skip))
+            .limit(Number(limit))
+            .sort(sortObj);
+
+        const totalProducts = await ProductModel.countDocuments(filter);
 
         return res.json({
-            products,
+            data: products,
+            page_info: {
+                total: totalProducts,
+                page: Math.floor(Number(skip) / Number(limit)) + 1,
+                totalPages: Math.ceil(totalProducts / Number(limit)),
+            },
         });
     } catch (e) {
         return ErrorUtil.APIError(e, res);
@@ -28,31 +52,12 @@ ProductController.getProductById = async (req, res) => {
     try {
         const { productId } = req.params;
 
-        const products = await ProductModel.findOne(
+        const product = await ProductModel.findOne(
             { _id: new mongoose.Types.ObjectId(`${productId}`) },
-            {
-                title: 1,
-                price: 1,
-                thumbnail: 1,
-                discountPercentage: 1,
-                stock: 1,
-                brand: 1,
-                category: 1,
-                dimensions: 1,
-                weight: 1,
-                minimumOrderQuantity: 1,
-                rating: 1,
-                returnPolicy: 1,
-                shippingInformation: 1,
-                warrantyInformation: 1,
-                availabilityStatus: 1,
-                sku: 1,
-                tags: 1,
-            },
         );
 
         return res.json({
-            products,
+            data: product,
         });
     } catch (e) {
         return ErrorUtil.APIError(e, res);

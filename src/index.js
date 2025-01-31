@@ -8,6 +8,7 @@ const { initDatabase } = require('./utils/database');
 // Routes
 const ProductRoutes = require('./routes/product');
 const AuthRoutes = require('./routes/auth');
+const CartRoutes = require('./routes/cart');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(cors());
 // Registering Routes
 app.use('/products', ProductRoutes);
 app.use('/auth', AuthRoutes);
+app.use('/cart', CartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
