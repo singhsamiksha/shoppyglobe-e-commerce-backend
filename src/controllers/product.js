@@ -5,6 +5,14 @@ const ErrorUtil = require('../utils/error');
 const ProductController = {};
 module.exports = ProductController;
 
+/**
+ * Retrieves a list of products based on search criteria, pagination, and sorting options.
+ * Allows filtering by product title, sorting by either title or price, and pagination.
+ *
+ * @param {Object} req - The request object containing query parameters (search, skip, limit, sortBy, sortOrder).
+ * @param {Object} res - The response object for sending the response back to the client.
+ * @returns {Object} JSON response with product data, pagination info, or error details.
+ */
 ProductController.getAllProducts = async (req, res) => {
     const {
         search, skip = 0, limit = 10, sortBy = 'title', sortOrder = 'asc',
@@ -48,6 +56,13 @@ ProductController.getAllProducts = async (req, res) => {
     }
 };
 
+/**
+ * Retrieves a specific product by its ID.
+ *
+ * @param {Object} req - The request object containing the product ID in the parameters.
+ * @param {Object} res - The response object for sending the response back to the client.
+ * @returns {Object} JSON response with product details or error details.
+ */
 ProductController.getProductById = async (req, res) => {
     try {
         const { productId } = req.params;

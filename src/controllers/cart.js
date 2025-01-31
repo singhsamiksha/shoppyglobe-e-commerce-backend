@@ -5,6 +5,13 @@ const ErrorUtil = require('../utils/error');
 const CartController = {};
 module.exports = CartController;
 
+/**
+ * Retrieves the user's cart, including product details and quantities.
+ * Populates the cart items with product information and calculates price details.
+ *
+ * @param {Object} req - The request object containing the user data.
+ * @param {Object} res
+ */
 CartController.getUserCart = async (req, res) => {
     const { _id: userId } = req.user;
 
@@ -57,6 +64,12 @@ CartController.getUserCart = async (req, res) => {
     }
 };
 
+/**
+ * Adds a product to the user's cart. If the product is already in the cart, the quantity is updated.
+ *
+ * @param {Object} req - The request object containing the product ID and quantity.
+ * @param {Object} res
+ */
 CartController.addProductToCart = async (req, res) => {
     const { productId, quantity } = req.body;
     const { _id: userId } = req.user;
@@ -99,6 +112,13 @@ CartController.addProductToCart = async (req, res) => {
     }
 };
 
+/**
+ * Updates the quantity of a product in the user's cart.
+ * If the product is not already in the cart, it is added with the specified quantity.
+ *
+ * @param {Object} req - The request object containing the product ID and new quantity.
+ * @param {Object} res
+ */
 CartController.updateProductQuantityInCart = async (req, res) => {
     const { productId } = req.params;
     const { quantity } = req.body;
@@ -133,6 +153,12 @@ CartController.updateProductQuantityInCart = async (req, res) => {
     }
 };
 
+/**
+ * Removes a product from the user's cart.
+ *
+ * @param {Object} req - The request object containing the product ID to be removed.
+ * @param {Object} res
+ */
 CartController.removeItemFromCart = async (req, res) => {
     const { productId } = req.params;
     const { _id: userId } = req.user;

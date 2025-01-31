@@ -5,6 +5,14 @@ const ErrorUtil = require('../utils/error');
 const AuthController = {};
 module.exports = AuthController;
 
+/**
+ * Registers a new user.
+ * Checks if a user with the provided email already exists. If not, it creates a new user, hashes the password,
+ * saves the user, and returns a JWT token along with the user's public data.
+ *
+ * @param {Object} req - The request object containing the user data (name, email, password).
+ * @param {Object} res
+ */
 AuthController.registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -34,6 +42,13 @@ AuthController.registerUser = async (req, res) => {
     }
 };
 
+/**
+ * Logs in a user.
+ * Verifies the user's email and password. If valid, generates and returns a JWT token along with the user's public data.
+ *
+ * @param {Object} req - The request object containing the user's email and password.
+ * @param {Object} res
+ */
 AuthController.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -61,6 +76,13 @@ AuthController.loginUser = async (req, res) => {
     }
 };
 
+/**
+ * Validates a logged-in user.
+ * Checks if the user exists and returns their public data.
+ *
+ * @param {Object} req - The request object containing the authenticated user's details.
+ * @param {Object} res
+ */
 AuthController.validateUser = async (req, res) => {
     const { user } = req;
     try {
